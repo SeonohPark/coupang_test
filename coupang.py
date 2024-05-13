@@ -33,7 +33,46 @@ try:
   f = open(f'test_result/{now}_test_result.txt', 'w')
   f.write(f'테스트 수행 일자 - {now}\n')
 
-
+  #coupang_01 쿠팡 홈페이지 접속
+  #coupang_02 로그인
+  #coupang_02_1 우상단 [로그인]버튼 확인
+  #coupang_02_2 [로그인]버튼 클릭
+  #coupang_03 로그인 방법 확인
+  #coupang_04 [이메일 로그인]클릭
+  #coupang_05 [휴대폰번호 로그인]클릭
+  #coupang_06 [QR코드 로그인]클릭
+  #coupang_07 이메일 입력란에 유효하지 않은 형식 이메일 입력
+  #coupang_08 암호 입력란에 암호 입력
+  #coupang_09 [로그인]버튼 클릭
+  #coupang_10 이메일 입력란에 유효한 아이디 입력
+  #coupang_11 암호 입력란에 암호 입력
+  #coupang_12 로그인 성공
+  #coupang_12_1 [로그인]버튼 클릭
+  #coupang_12_2 우상단 [로그아웃]버튼 확인
+  #coupang_13 메인화면 로고 옆 검색창 노출 확인
+  #coupang_14 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
+  #coupang_15 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
+  #coupang_16 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
+  #coupang_17 필터 - 상품목록 상단에서 [낮은가격순] 클릭
+  #coupang_18 닞은가격순 1번 상품 클릭
+  #coupang_19 [장바구니 담기]버튼 클릭
+  #coupang_20 홈으로 이동 후 우상단 [장바구니]버튼 및 숫자 1 노출 확인
+  #coupang_21 [장바구니]버튼 클릭
+  #coupang_22 [구매하기]버튼 클릭
+  #coupang_23 주문/결제 페이지 노출항목 확인
+  #coupang_24 [결제하기]버튼 클릭
+  #coupang_25 결제 비밀번호 입력
+  #coupang_26 우상단 장바구니 숫자 0확인
+  #coupang_27 [주문 상세보기]버튼 클릭
+  #coupang_28_1 [배송조회]버튼 클릭 
+  #coupang_28_2 이전 페이지로 이동
+  #coupang_29_1 [주문취소]버튼 클릭
+  #coupang_29_2 [단순변심]버튼 클릭
+  #coupang_29_3 [다음단계]버튼 클릭
+  #coupang_30 [신청하기]버튼 클릭
+  #coupang_31 [확인]버튼 클릭
+  #coupang_32 [쇼핑 계속하기]버튼 클릭
+  #coupang_33 우상단 [로그아웃]버튼 클릭
 
 
 except Exception as e:
