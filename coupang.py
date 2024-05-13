@@ -30,10 +30,37 @@ driver = webdriver.Chrome()
 # 테스트 전 과정에 걸쳐 에러발생 시 에러를 기록하는 try, except문 
 try:
   print('##################테스트 시작###################')
-  f = open(f'test_result/{now}_test_result.txt', 'w')
-  f.write(f'테스트 수행 일자 - {now}\n')
+  # f = open(f'test_result/{now}_test_result.txt', 'w')
+  # f.write(f'테스트 수행 일자 - {now}\n')
+
+  driver.implicitly_wait(10)
 
   #coupang_01 쿠팡 홈페이지 접속
+  try:
+    tc_progress = 'COUPANG_01'
+    driver.get('https://www.coupang.com')
+    driver.maximize_window()
+
+    # iframe으로 전환
+    # WebDriverWait(driver, 20).until(EC.frame_to_be_available_and_switch_to_it((By.ID, 'cto_sub_ifr_px')))
+
+    # logo_element = WebDriverWait(driver, 20).until(
+    #   EC.element_to_be_clickable((By.XPATH, '//*[@id="sticky-wrapper"]/div/h1/a/img'))
+    # ).is_displayed()
+    
+    if driver.current_url == 'https://www.coupang.com/':
+      print(driver.title)
+      print(driver.current_url)
+      result_pass_list.append(tc_progress)
+      print('COUPANG_01 쿠팡 메인화면 진입 성공')
+    else:
+      print('쿠팡 메인화면 로고 확인 불가')
+
+  except TimeoutException:
+    print('로딩시간 초과 에러 발생')
+  except NoSuchElementException:
+    print('페이지 내 해당 엘리먼트 미노출')
+
   #coupang_02 로그인
   #coupang_02_1 우상단 [로그인]버튼 확인
   #coupang_02_2 [로그인]버튼 클릭
@@ -74,20 +101,21 @@ try:
   #coupang_32 [쇼핑 계속하기]버튼 클릭
   #coupang_33 우상단 [로그아웃]버튼 클릭
 
+  time.sleep(10)
 
 except Exception as e:
   print(f'에러가 발생하여 테스트 종료: {tc_progress} >>> {e}')
 
-#PASS 테스트 결과 기록
-f.write('\n[RESULT - PASS]\n')
-for pass_cnt in range(len(result_pass_list)):
-  f.write(f'{result_pass_list[pass_cnt]} : PASS\n')
+# #PASS 테스트 결과 기록
+# f.write('\n[RESULT - PASS]\n')
+# for pass_cnt in range(len(result_pass_list)):
+#   f.write(f'{result_pass_list[pass_cnt]} : PASS\n')
 
-#FAIL 테스트 결과 기록
-f.write('\n[RESULT - FAIL]\n')
-for fail_cnt in range(len(result_fail_list)):
-  f.write(f'{result_fail_list[fail_cnt]} : FAIL\n')
-  f.write(f'\tFAIL REASON : {fail_reason_list[fail_cnt]}\n')
+# #FAIL 테스트 결과 기록
+# f.write('\n[RESULT - FAIL]\n')
+# for fail_cnt in range(len(result_fail_list)):
+#   f.write(f'{result_fail_list[fail_cnt]} : FAIL\n')
+#   f.write(f'\tFAIL REASON : {fail_reason_list[fail_cnt]}\n')
 
 # f.write('\n') 
 # f.write(f'PASS TC COUNT : {len(result_pass_list)}\n')#패스 TC 개수  
