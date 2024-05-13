@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
+
 
 # 현재 날짜, 시간 구하기
 now = time.strftime('%Y-%m_%d_%H_%M')
@@ -40,13 +42,6 @@ try:
     tc_progress = 'COUPANG_01'
     driver.get('https://www.coupang.com')
     driver.maximize_window()
-
-    # iframe으로 전환
-    # WebDriverWait(driver, 20).until(EC.frame_to_be_available_and_switch_to_it((By.ID, 'cto_sub_ifr_px')))
-
-    # logo_element = WebDriverWait(driver, 20).until(
-    #   EC.element_to_be_clickable((By.XPATH, '//*[@id="sticky-wrapper"]/div/h1/a/img'))
-    # ).is_displayed()
     
     if driver.current_url == 'https://www.coupang.com/':
       print(driver.title)
@@ -62,9 +57,67 @@ try:
     print('페이지 내 해당 엘리먼트 미노출')
 
   #coupang_02 로그인
-  #coupang_02_1 우상단 [로그인]버튼 확인
-  #coupang_02_2 [로그인]버튼 클릭
+  try:
+    signin_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="login"]/a')))
+
+    if signin_btn.is_displayed():
+      tc_progress = 'COUPANG_02_1'
+       #coupang_02_1 우상단 [로그인]버튼 확인
+      result_pass_list.append(tc_progress)
+      print('COUPANG_02_1 우상단 [로그인]버튼 확인')
+
+      #coupang_02_2 [로그인]버튼 클릭
+      try:
+        signin_btn.click()
+        tc_progress = 'COUPANG_02_2'
+        result_pass_list.append(tc_progress)
+        print('COUPANG_02_2 [로그인]버튼 클릭')
+      except Exception as e:
+        print(f'로그인 버튼 클릭 오류 : {e}')
+
+    else:
+      print('[로그인]버튼 확인 불가')
+
+  except Exception:
+    fail_reason = '로그인 버튼 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_02 로그인 버튼 확인 실패')
+
   #coupang_03 로그인 방법 확인
+  try:
+    tc_progress = 'COUPANG_03'
+
+    email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
+    phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
+    qr_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.qrcode')
+
+    if email_singnin.is_displayed():
+      print('COUPANG_03 이메일 로그인 노출')
+    else:
+      print('COUPANG_03 이메일 로그인 미노출')
+
+    if phone_signin.is_displayed():
+      print('COUPANG_03 휴대폰번호 로그인 노출')
+    else:
+      print('COUPANG_03 휴대폰번호 로그인 미노출')
+    
+    if qr_signin.is_displayed():
+      print('COUPANG_03 QR로그인 노출')
+    else:
+      print('COUPANG_03 QR로그인 미노출')
+
+    result_pass_list.append(tc_progress)
+    print('COUPANG_03 로그인 방법 확인')
+
+  except Exception:
+    fail_reason = '로그인방법 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_03 로그인방법 확인 실패')
+
   #coupang_04 [이메일 로그인]클릭
   #coupang_05 [휴대폰번호 로그인]클릭
   #coupang_06 [QR코드 로그인]클릭
