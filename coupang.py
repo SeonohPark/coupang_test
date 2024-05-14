@@ -260,10 +260,35 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_08 로그인 성공 확인 실패')
 
-  #coupang_12_1 [로그인]버튼 클릭
-  #coupang_12_2 우상단 [로그아웃]버튼 확인
-  #coupang_13 메인화면 로고 옆 검색창 노출 확인
-  #coupang_14 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
+  #coupang_9 메인화면 로고 옆 검색창 노출 확인
+  try:
+    tc_progress = 'COUPANG_09'
+    dropbox = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="sbHolder_40407912"]')))
+    search_input = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchKeyword"]')))
+    voice_search = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div/a')))
+    search_btn = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchBtn"]')))
+
+    if dropbox.is_displayed():
+      print('카테고리 드롭박스 노출 확인')
+      if search_input.is_displayed():
+        print('검색어 입력란 노출 확인')
+        if voice_search.is_displayed():
+          print('음성인식 버튼 노출 확인')
+          if search_btn.is_displayd():
+            print('[돋보기]버튼 노출 확인')
+            result_pass_list.append(tc_progress)
+            print('COUPANG_09 메인화면 검색창 요소노출 확인')
+    else:
+      print('검색창 요소 확인 불가')
+
+  except Exception:
+    fail_reason = '검색창 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_09 검색창 확인 실패')
+
+  #coupang_10 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
   #coupang_15 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
   #coupang_16 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
   #coupang_17 필터 - 상품목록 상단에서 [낮은가격순] 클릭
