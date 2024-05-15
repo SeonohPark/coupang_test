@@ -289,6 +289,27 @@ try:
     print('COUPANG_09 검색창 확인 실패')
 
   #coupang_10 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
+  try:
+    tc_progress = 'COUPANG_10'
+    search_input.click()
+    search_input.send_keys('칫솔')
+    search_btn.click()
+    time.sleep(3)
+
+    if driver.current_url == 'https://www.coupang.com/np/search?component=&q=%EC%B9%AB%EC%86%94&channel=user':
+      result_pass_list.append(tc_progress)
+      print('칫솔 검색 확인')
+      
+    else:
+      print('칫솔 검색 확인 불가')
+
+  except Exception:
+    fail_reason = '칫솔 검색 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_10 칫솔 검색 확인 실패')
+
   #coupang_15 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
   #coupang_16 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
   #coupang_17 필터 - 상품목록 상단에서 [낮은가격순] 클릭
