@@ -241,6 +241,9 @@ try:
       
       my_pw = input('비밀번호를 입력해 주세요: ')
       pw_input.send_keys(my_pw)
+      time.sleep(3)
+
+      driver.find_element(By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button').click()
       
       WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
 
@@ -299,7 +302,6 @@ try:
     if driver.current_url == 'https://www.coupang.com/np/search?component=&q=%EC%B9%AB%EC%86%94&channel=user':
       result_pass_list.append(tc_progress)
       print('칫솔 검색 확인')
-      
     else:
       print('칫솔 검색 확인 불가')
 
@@ -310,9 +312,104 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_10 칫솔 검색 확인 실패')
 
-  #coupang_15 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
-  #coupang_16 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
-  #coupang_17 필터 - 상품목록 상단에서 [낮은가격순] 클릭
+  #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
+  # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
+  try:
+    tc_progress = 'COUPANG_11'
+    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
+
+    # 상품 목록 가져오기
+    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+
+    # 각 상품 검사
+    all_abroad_delivery = True
+    for product in product_ids:
+      product_id = product.get_attribute('id')
+      try:
+        # 로켓직구 이미지 요소 찾기
+        abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+        # 로켓직구 이미지의 src 속성 확인
+        if 'global_b.png' not in abroad_img.get_attribute('src'):
+          all_abroad_delivery = False
+          print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+          break
+      except NoSuchElementException:
+        all_abroad_delivery = False
+        print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+
+    if all_abroad_delivery:
+      print('모든 상품이 로켓직구 상품임.')
+    else:
+      print('로켓직구가 아닌 일부 상품이 포함되어 있음')
+
+  except Exception:
+    fail_reason = '로켓직구 필터 오류'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_11 로켓직구 필터 확인 실패')
+
+  #coupang_12 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
+  # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
+  try:
+    tc_progress = 'COUPANG_12'
+    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
+
+    # 상품 목록 가져오기
+    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+
+    # 각 상품 검사
+    all_rocket_delivery = True
+    for product in product_ids:
+      product_id = product.get_attribute('id')
+      try:
+        # 로켓직구 이미지 요소 찾기
+        rocket_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+        # 로켓직구 이미지의 src 속성 확인
+        if 'rocket.png' not in rocket_img.get_attribute('src'):
+          all_rocket_delivery = False
+          print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+          break
+      except NoSuchElementException:
+        all_rocket_delivery = False
+        print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+
+    if all_rocket_delivery:
+      print('모든 상품이 로켓배송 상품임.')
+    else:
+      print('로켓배송이 아닌 일부 상품이 포함되어 있음')
+
+  except Exception:
+    fail_reason = '로켓배송 필터 오류'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_11 로켓 필터 확인 실패')
+
+  #coupang_13 필터 - 상품목록 상단에서 [낮은가격순] 클릭
+  #상품 목록 가져오기
+  products = driver.find_elements((By.XPATH, "//div[@class='id']"))
+  prices = []
+
+  #각 상품의 가격 정보 추출
+  for product in products:
+    product_id = product.get_attribute('id')
+    try:
+      # 가격 정보 요소 찾기
+      price_element = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div[1]/div[1]/em/strong")
+      # 가격 정보 추출 및 정수 변환
+      price = int(price_element.text.replace(",", ""))
+      prices.append(price)
+    except NoSuchElementException:
+      print(f"가격 정보 요소를 찾을 수 없음 ID {product_id}")
+      continue
+
+    # 가격이 오름차순으로 정렬되었는지 확인
+    if prices == sorted(prices):
+      print('가격이 오름차순으로 정렬되어 있음')
+    else:
+      print('가격이 오름차순으로 정렬되어 있지 않음')
+
   #coupang_18 닞은가격순 1번 상품 클릭
   #coupang_19 [장바구니 담기]버튼 클릭
   #coupang_20 홈으로 이동 후 우상단 [장바구니]버튼 및 숫자 1 노출 확인
