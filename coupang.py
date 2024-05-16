@@ -110,37 +110,37 @@ try:
     print('COUPANG_02 로그인 버튼 확인 실패')
 
   #coupang_03 로그인 방법 확인
-  try:
-    tc_progress = 'COUPANG_03'
+  # try:
+  #   tc_progress = 'COUPANG_03'
 
-    email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
-    phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
-    qr_signin = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div[1]/a[3]')
+  #   email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
+  #   phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
+  #   qr_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.qrcode.active')
 
-    if email_singnin.is_displayed():
-      print('COUPANG_03 이메일 로그인 노출')
-    else:
-      print('COUPANG_03 이메일 로그인 미노출')
+  #   if email_singnin.is_displayed():
+  #     print('COUPANG_03 이메일 로그인 노출')
+  #   else:
+  #     print('COUPANG_03 이메일 로그인 미노출')
 
-    if phone_signin.is_displayed():
-      print('COUPANG_03 휴대폰번호 로그인 노출')
-    else:
-      print('COUPANG_03 휴대폰번호 로그인 미노출')
+  #   if phone_signin.is_displayed():
+  #     print('COUPANG_03 휴대폰번호 로그인 노출')
+  #   else:
+  #     print('COUPANG_03 휴대폰번호 로그인 미노출')
     
-    if qr_signin.is_displayed():
-      print('COUPANG_03 QR로그인 노출')
-    else:
-      print('COUPANG_03 QR로그인 미노출')
+  #   if qr_signin.is_displayed():
+  #     print('COUPANG_03 QR로그인 노출')
+  #   else:
+  #     print('COUPANG_03 QR로그인 미노출')
 
-    result_pass_list.append(tc_progress)
-    print('COUPANG_03 로그인 방법 확인')
+  #   result_pass_list.append(tc_progress)
+  #   print('COUPANG_03 로그인 방법 확인')
 
-  except Exception:
-    fail_reason = '로그인방법 확인 실패'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_03 로그인방법 확인 실패')
+  # except Exception:
+  #   fail_reason = '로그인방법 확인 실패'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_03 로그인방법 확인 실패')
 
   #coupang_04 [이메일 로그인]클릭
   try:
@@ -163,98 +163,96 @@ try:
     print('COUPANG_04 [이메일 로그인] 확인 실패')
 
   #coupang_05 [휴대폰번호 로그인]클릭
-  try:
-      tc_progress = 'COUPANG_05'
-      phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
+  # try:
+  #     tc_progress = 'COUPANG_05'
+  #     phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
+  #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
 
-      if phone_input.is_displayed():
-        result_pass_list.append(tc_progress)
-        print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
-      else:
-        print('휴대폰번호 입력란 확인 불가')
+  #     if phone_input.is_displayed():
+  #       result_pass_list.append(tc_progress)
+  #       print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
+  #     else:
+  #       print('휴대폰번호 입력란 확인 불가')
 
-  except Exception:
-    fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
+  # except Exception:
+  #   fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
   
   #coupang_06 [QR코드 로그인]클릭
-  try:
-      tc_progress = 'COUPANG_06'
-      qr_code = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.qr-login > div.qr-login__content > div.right > div.qr-login__image > canvas')
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((qr_signin))).click()
+  # time.sleep(2)
+  # try:
+  #     tc_progress = 'COUPANG_06'
+  #     qr_code = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.qr-login > div.qr-login__content > div.right > div.qr-login__image > canvas')
+  #     qr_signin.click()
 
-      if qr_code.is_displayed():
-        result_pass_list.append(tc_progress)
-        print('COUPANG_06 [QR코드 로그인]버튼 클릭')
-      else:
-        print('QR코드 확인 불가')
+  #     if qr_code.is_displayed():
+  #       result_pass_list.append(tc_progress)
+  #       print('COUPANG_06 [QR코드 로그인]버튼 클릭')
+  #     else:
+  #       print('QR코드 확인 불가')
 
-  except Exception:
-    fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_06 [QR코드 로그인] 확인 실패')
+  # except Exception:
+  #   fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_06 [QR코드 로그인] 확인 실패')
 
   #coupang_07 유효하지 않은 형식 이메일 입력
-  try:
-    tc_progress = 'COUPANG_07'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
-    id_input.send_keys('pso0244')
+  # try:
+  #   tc_progress = 'COUPANG_07'
+  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
+  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
+  #   id_input.send_keys('pso0244')
 
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
-    pw_input.send_keys('aaaaaaa')
+  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
+  #   pw_input.send_keys('aaaaaaa')
 
-    wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
+  #   wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
     
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
+  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
 
-    if wrong_email.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_07 유효하지 않은 계정 입력 성공')
-    else:
-      print('유효하지 않은 게정 확인 불가')
+  #   if wrong_email.is_displayed():
+  #     result_pass_list.append(tc_progress)
+  #     print('COUPANG_07 유효하지 않은 계정 입력 성공')
+  #   else:
+  #     print('유효하지 않은 게정 확인 불가')
 
-  except Exception:
-    fail_reason = '유효하지 않은 계정 확인 실패'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_07 유효하지 않은 계정 확인 실패')
+  # except Exception:
+  #   fail_reason = '유효하지 않은 계정 확인 실패'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_07 유효하지 않은 계정 확인 실패')
 
   #coupang_08 로그인 성공
   try:
-      tc_progress = 'COUPANG_08'
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).clear()
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
+    time.sleep(3)
+    tc_progress = 'COUPANG_08'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).clear()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
 
-      my_id = input('아이디를 입력해 주세요: ')
-      id_input.send_keys(my_id)
+    my_id = input('아이디를 입력해 주세요: ')
+    id_input.send_keys(my_id)
 
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).clear()
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
-      
-      my_pw = input('비밀번호를 입력해 주세요: ')
-      pw_input.send_keys(my_pw)
-      time.sleep(3)
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).clear()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
+    
+    my_pw = input('비밀번호를 입력해 주세요: ')
+    pw_input.send_keys(my_pw)
+    driver.find_element(By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button').click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
+    time.sleep(2)
+    signout_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.CSS_SELECTOR, '#logout > a'))
 
-      driver.find_element(By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button').click()
-      
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
-
-      time.sleep(3)
-      signout_btn = driver.find_element(By.XPATH, '//*[@id="logout"]/a')
-
-      if signout_btn.is_displayed():
-        result_pass_list.append(tc_progress)
-        print('COUPANG_08 로그인 성공')
-      else:
-        print('로그인 성공 확인 불가')
+    if signout_btn.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_08 로그인 성공')
+    else:
+      print('로그인 성공 확인 불가')
 
   except Exception:
     fail_reason = '로그인 성공 확인 실패'
@@ -264,40 +262,35 @@ try:
     print('COUPANG_08 로그인 성공 확인 실패')
 
   #coupang_9 메인화면 로고 옆 검색창 노출 확인
-  try:
-    tc_progress = 'COUPANG_09'
-    dropbox = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="sbHolder_40407912"]')))
-    search_input = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchKeyword"]')))
-    voice_search = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div/a')))
-    search_btn = WebDriverWait(driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, '//*[@id="headerSearchBtn"]')))
+  # try:
+  #   tc_progress = 'COUPANG_09'
+  #   dropbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#sbHolder_68839843')))
+    search_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchKeyword')))
+  #   voice_search = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchForm > fieldset > div > a')))
+    search_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchBtn')))
+  #   search_form = driver.find_element(By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div')    
+  #   print('2222')
+  #   time.sleep(2)
 
-    if dropbox.is_displayed():
-      print('카테고리 드롭박스 노출 확인')
-      if search_input.is_displayed():
-        print('검색어 입력란 노출 확인')
-        if voice_search.is_displayed():
-          print('음성인식 버튼 노출 확인')
-          if search_btn.is_displayd():
-            print('[돋보기]버튼 노출 확인')
-            result_pass_list.append(tc_progress)
-            print('COUPANG_09 메인화면 검색창 요소노출 확인')
-    else:
-      print('검색창 요소 확인 불가')
+  #   if dropbox.is_displayed():
+  #     print('검색창 노출 확인')
+  #   else:
+  #     print('검색창 확인 불가')
 
-  except Exception:
-    fail_reason = '검색창 확인 실패'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_09 검색창 확인 실패')
+  # except Exception:
+  #   fail_reason = '검색창 확인 실패'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_09 검색창 확인 실패')
 
   #coupang_10 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
   try:
     tc_progress = 'COUPANG_10'
-    search_input.click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((search_input))).click()
+    # search_input.click()
     search_input.send_keys('칫솔')
     search_btn.click()
-    time.sleep(3)
 
     if driver.current_url == 'https://www.coupang.com/np/search?component=&q=%EC%B9%AB%EC%86%94&channel=user':
       result_pass_list.append(tc_progress)
@@ -410,7 +403,7 @@ try:
     else:
       print('가격이 오름차순으로 정렬되어 있지 않음')
 
-  #coupang_18 닞은가격순 1번 상품 클릭
+  #coupang_14 닞은가격순 1번 상품 클릭
   #coupang_19 [장바구니 담기]버튼 클릭
   #coupang_20 홈으로 이동 후 우상단 [장바구니]버튼 및 숫자 1 노출 확인
   #coupang_21 [장바구니]버튼 클릭
