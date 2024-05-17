@@ -415,10 +415,82 @@ try:
     print('COUPANG_12 낮은 가격순 필터 확인 실패')
 
   #coupang_14 닞은가격순 1번 상품 클릭
-  #coupang_19 [장바구니 담기]버튼 클릭
-  #coupang_20 홈으로 이동 후 우상단 [장바구니]버튼 및 숫자 1 노출 확인
-  #coupang_21 [장바구니]버튼 클릭
-  #coupang_22 [구매하기]버튼 클릭
+  try:
+    tc_progress = 'COUPANG_14'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="734755"]/a/dl/dt/img'))).click()
+    product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h2')))
+
+    if product_name.is_displayed():
+      result_pass_list.append(tc_progress)
+      print(product_name.text)
+      print('COUPANG_14 상품 상세페이지 진입 성공')
+    else:
+      print('COUPANG_14 상품 상세페이지 진입 실패')
+
+  except Exception:
+    fail_reason = '상품 상세페이지 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_14 상품 상세 페이지 확인 실패')
+  
+  #coupang_15 [장바구니 담기]버튼 클릭
+  try:
+      tc_progress = 'COUPANG_15'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[9]/div[2]/div[2]/div/button[1]'))).click()
+      product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h2')))
+      cart_cnt = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="headerCartCount"]')))
+
+      if cart_cnt.text == 1:
+        result_pass_list.append(tc_progress)
+        print('COUPANG_15 장바구니 담기 성공')
+      else:
+        print('COUPANG_15 장바구니 담기 실패')
+
+  except Exception:
+    fail_reason = '장바구니 담기 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_15 장바구니 담기 확인 실패')
+
+  #coupang_16 [장바구니]버튼 클릭
+  try:
+    tc_progress = 'COUPANG_16'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[3]/a'))).click()
+
+    if driver.current_url == 'https://cart.coupang.com/cartView.pang':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_16 장바구니 페이지 이동 성공')
+    else:
+      print('COUPANG_16 장바구니 페이지 이동 실패')
+
+  except Exception:
+    fail_reason = '장바구니 페이지 이동 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_16 장바구니 페이지 이동 실패')
+
+  #coupang_17 [구매하기]버튼 클릭
+  try:
+    tc_progress = 'COUPANG_17'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnPay"]'))).click()
+    pay_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[1]/h3')))
+
+    if pay_page.text == '주문/결제':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_17 주문/결제 페이지 이동 성공')
+    else:
+      print('COUPANG_17 주문/결제 페이지 이동 실패')
+
+  except Exception:
+    fail_reason = '주문/결제 페이지 이동 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_17 주문/결제 페이지 이동 실패')
+
   #coupang_23 주문/결제 페이지 노출항목 확인
   #coupang_24 [결제하기]버튼 클릭
   #coupang_25 결제 비밀번호 입력
