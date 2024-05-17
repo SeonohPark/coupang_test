@@ -491,7 +491,52 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_17 주문/결제 페이지 이동 실패')
 
-  #coupang_23 주문/결제 페이지 노출항목 확인
+  #coupang_18 주문/결제 페이지 노출항목 확인
+  try:
+    tc_progress = 'COUPANG_18'
+    buyer_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[3]/div/h2')))
+    receiver_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[3]/div/h2')))
+    delivery_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[6]/div[1]/div[2]/div[3]')))
+    pay_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="pay-price-section"]/h2')))
+    card_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[8]/div/h2')))
+
+    if buyer_info.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_18_1 구매자정보 노출 확인')
+    else:
+      print('COUPANG_18_1 구매자정보 노출 실패')
+
+    if receiver_info.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_18_2 받는사람정보 노출 확인')
+    else:
+      print('COUPANG_18_2 받는사람정보 노출 실패')
+    
+    if delivery_info.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_18_3 배송방법 노출 확인')
+    else:
+      print('COUPANG_18_3 배송방법 노출 실패')
+
+    if pay_info.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_18_4 결제정보 노출 확인')
+    else:
+      print('COUPANG_18_4 결제정보 노출 실패')
+
+    if card_info.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_18_5 결제수단 노출 확인')
+    else:
+      print('COUPANG_18_5 결제수단 노출 실패')
+
+  except Exception:
+    fail_reason = '주문/결제 페이지 노출항목 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_18 주문/결제 노출항목 확인 실패')
+
   #coupang_24 [결제하기]버튼 클릭
   #coupang_25 결제 비밀번호 입력
   #coupang_26 우상단 장바구니 숫자 0확인
