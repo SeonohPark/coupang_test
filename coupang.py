@@ -262,32 +262,30 @@ try:
     print('COUPANG_08 로그인 성공 확인 실패')
 
   #coupang_9 메인화면 로고 옆 검색창 노출 확인
-  # try:
-  #   tc_progress = 'COUPANG_09'
-  #   dropbox = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#sbHolder_68839843')))
-    search_input = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchKeyword')))
-  #   voice_search = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchForm > fieldset > div > a')))
-    search_btn = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, '#headerSearchBtn')))
-  #   search_form = driver.find_element(By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div')    
-  #   print('2222')
-  #   time.sleep(2)
+  try:
+    tc_progress = 'COUPANG_09'
+    dropbox = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#sbHolder_68839843')))
+    search_form = driver.find_element(By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div')    
+    time.sleep(2)
 
-  #   if dropbox.is_displayed():
-  #     print('검색창 노출 확인')
-  #   else:
-  #     print('검색창 확인 불가')
+    if dropbox.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('검색창 노출 확인')
+    else:
+      print('검색창 확인 불가')
 
-  # except Exception:
-  #   fail_reason = '검색창 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_09 검색창 확인 실패')
+  except Exception:
+    fail_reason = '검색창 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_09 검색창 확인 실패')
 
   #coupang_10 검색어 입력란에 '칫솔' 입력 후 [돋보기]버튼 클릭
   try:
     tc_progress = 'COUPANG_10'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((search_input))).click()
+    search_input = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="headerSearchKeyword"]')))
+    search_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="headerSearchBtn"]')))
     # search_input.click()
     search_input.send_keys('칫솔')
     search_btn.click()
@@ -347,10 +345,8 @@ try:
   try:
     tc_progress = 'COUPANG_12'
     driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
-
     # 상품 목록 가져오기
     product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
-
     # 각 상품 검사
     all_rocket_delivery = True
     for product in product_ids:
@@ -379,29 +375,44 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_11 로켓 필터 확인 실패')
 
-  #coupang_13 필터 - 상품목록 상단에서 [낮은가격순] 클릭
-  #상품 목록 가져오기
-  products = driver.find_elements((By.XPATH, "//div[@class='id']"))
-  prices = []
+  try:
+    #coupang_13 필터 - 상품목록 상단에서 [낮은가격순] 클릭
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="searchSortingOrder"]/ul/li[2]/label'))).click()
+    #상품 목록 가져오기
+    products = driver.find_elements((By.XPATH, "//div[@class='price']"))
+    prices = []
+    time.sleep(3)
 
-  #각 상품의 가격 정보 추출
-  for product in products:
-    product_id = product.get_attribute('id')
-    try:
-      # 가격 정보 요소 찾기
-      price_element = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div[1]/div[1]/em/strong")
-      # 가격 정보 추출 및 정수 변환
-      price = int(price_element.text.replace(",", ""))
-      prices.append(price)
-    except NoSuchElementException:
-      print(f"가격 정보 요소를 찾을 수 없음 ID {product_id}")
-      continue
-
+    #각 상품의 가격 정보 추출
+    for product in products:
+      product_id = product.get_attribute('price')
+      try:
+        # 가격 정보 요소 찾기
+        price_element = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div[1]/div[1]/em/strong")
+        # 가격 정보 추출 및 정수 변환
+        price_text = price_element.text.replace(",", "")
+        try:
+            price = int(price_text)
+            prices.append(price)
+            print(product_id)
+        except ValueError:
+            print(f"가격 정보를 정수로 변환할 수 없음: {price_text} (ID {product_id})")
+      except NoSuchElementException:
+        print(f"가격 정보 요소를 찾을 수 없음 ID {product_id}")
+        continue
+    
     # 가격이 오름차순으로 정렬되었는지 확인
     if prices == sorted(prices):
       print('가격이 오름차순으로 정렬되어 있음')
     else:
       print('가격이 오름차순으로 정렬되어 있지 않음')
+
+  except Exception:
+    fail_reason = '낮은 가격순 필터 오류'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_12 낮은 가격순 필터 확인 실패')
 
   #coupang_14 닞은가격순 1번 상품 클릭
   #coupang_19 [장바구니 담기]버튼 클릭
