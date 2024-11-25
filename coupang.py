@@ -1,4 +1,4 @@
-import os
+# import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
-from fake_useragent import UserAgent
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -28,32 +27,6 @@ tc_count = 36 #전체 TC 개수
 #   f.write('\n 내용을 추가로 작성합니다.')
 #   f.close()
 
-# options = webdriver.ChromeOptions()
-# options.add_argument("--disable-blink-features=AutomationControlled")
-# user_ag = UserAgent().random
-# options.add_argument('user-agent=%s'%user_ag)
-# options.add_experimental_option("excludeSwitches", ["enable-automation"])
-# options.add_experimental_option("useAutomationExtension", False)
-# options.add_experimental_option("prefs", {"prfile.managed_default_content_setting.images": 2})
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-# options = webdriver.ChromeOptions()
-# options.add_argument("authority=" + "www.coupang.com")
-# options.add_argument("method=" + "GET")
-# options.add_argument("accept=" + "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
-# options.add_argument("accept-encoding=" + "gzip, deflate, br")
-# options.add_argument("user-agent=" + "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.104 Whale/3.13.131.36 Safari/537.36")
-# options.add_argument("sec-ch-ua-platform=" + "macOS")
-# options.add_argument("cookie=" + "PCID=31489593180081104183684; _fbp=fb.1.1644931520418.1544640325; gd1=Y; X-CP-PT-locale=ko_KR; MARKETID=31489593180081104183684; sid=03ae1c0ed61946c19e760cf1a3d9317d808aca8b; x-coupang-origin-region=KOREA; x-coupang-target-market=KR; x-coupang-accept-language=ko_KR;")
-
-options = webdriver.ChromeOptions()
-options.add_argument("--disable-blink-features=AutomationControlled")
-
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-url = 'https://www.coupang.com/'
-driver.get(url=url)
-driver.maximize_window()
 
 # 테스트 전 과정에 걸쳐 에러발생 시 에러를 기록하는 try, except문 
 try:
@@ -61,7 +34,23 @@ try:
   # f = open(f'test_result/{now}_test_result.txt', 'w')
   # f.write(f'테스트 수행 일자 - {now}\n')
 
+  driver = webdriver.Chrome()
+
+  options = webdriver.ChromeOptions()
+  options.add_argument("--disable-blink-features=AutomationControlled")
+  options.add_argument("authority=" + "www.coupang.com")
+  options.add_argument("method=" + "GET")
+  options.add_argument("accept=" + "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
+  options.add_argument("accept-encoding=" + "gzip, deflate, br")
+  options.add_argument("user-agent=" + "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.104 Whale/3.13.131.36 Safari/537.36")
+  options.add_argument("sec-ch-ua-platform=" + "macOS")
+  options.add_argument("cookie=" + "PCID=31489593180081104183684; _fbp=fb.1.1644931520418.1544640325; gd1=Y; X-CP-PT-locale=ko_KR; MARKETID=31489593180081104183684; sid=03ae1c0ed61946c19e760cf1a3d9317d808aca8b; x-coupang-origin-region=KOREA; x-coupang-target-market=KR; x-coupang-accept-language=ko_KR;")
+
+  driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+  driver.get('https://www.coupang.com/')
+
   driver.implicitly_wait(10)
+  driver.maximize_window()
 
   #coupang_01 쿠팡 홈페이지 접속
   try:
@@ -110,37 +99,37 @@ try:
     print('COUPANG_02 로그인 버튼 확인 실패')
 
   #coupang_03 로그인 방법 확인
-  # try:
-  #   tc_progress = 'COUPANG_03'
+  try:
+    tc_progress = 'COUPANG_03'
 
-  #   email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
-  #   phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
-  #   qr_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.qrcode.active')
+    email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
+    phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
+    qr_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.qrcode.active')
 
-  #   if email_singnin.is_displayed():
-  #     print('COUPANG_03 이메일 로그인 노출')
-  #   else:
-  #     print('COUPANG_03 이메일 로그인 미노출')
+    if email_singnin.is_displayed():
+      print('COUPANG_03 이메일 로그인 노출')
+    else:
+      print('COUPANG_03 이메일 로그인 미노출')
 
-  #   if phone_signin.is_displayed():
-  #     print('COUPANG_03 휴대폰번호 로그인 노출')
-  #   else:
-  #     print('COUPANG_03 휴대폰번호 로그인 미노출')
+    if phone_signin.is_displayed():
+      print('COUPANG_03 휴대폰번호 로그인 노출')
+    else:
+      print('COUPANG_03 휴대폰번호 로그인 미노출')
     
-  #   if qr_signin.is_displayed():
-  #     print('COUPANG_03 QR로그인 노출')
-  #   else:
-  #     print('COUPANG_03 QR로그인 미노출')
+    if qr_signin.is_displayed():
+      print('COUPANG_03 QR로그인 노출')
+    else:
+      print('COUPANG_03 QR로그인 미노출')
 
-  #   result_pass_list.append(tc_progress)
-  #   print('COUPANG_03 로그인 방법 확인')
+    result_pass_list.append(tc_progress)
+    print('COUPANG_03 로그인 방법 확인')
 
-  # except Exception:
-  #   fail_reason = '로그인방법 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_03 로그인방법 확인 실패')
+  except Exception:
+    fail_reason = '로그인방법 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_03 로그인방법 확인 실패')
 
   #coupang_04 [이메일 로그인]클릭
   try:
@@ -163,70 +152,70 @@ try:
     print('COUPANG_04 [이메일 로그인] 확인 실패')
 
   #coupang_05 [휴대폰번호 로그인]클릭
-  # try:
-  #     tc_progress = 'COUPANG_05'
-  #     phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
-  #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
+  try:
+      tc_progress = 'COUPANG_05'
+      phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
 
-  #     if phone_input.is_displayed():
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
-  #     else:
-  #       print('휴대폰번호 입력란 확인 불가')
+      if phone_input.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
+      else:
+        print('휴대폰번호 입력란 확인 불가')
 
-  # except Exception:
-  #   fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
+  except Exception:
+    fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
   
   #coupang_06 [QR코드 로그인]클릭
-  # time.sleep(2)
-  # try:
-  #     tc_progress = 'COUPANG_06'
-  #     qr_code = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.qr-login > div.qr-login__content > div.right > div.qr-login__image > canvas')
-  #     qr_signin.click()
+  time.sleep(2)
+  try:
+      tc_progress = 'COUPANG_06'
+      qr_code = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.qr-login > div.qr-login__content > div.right > div.qr-login__image > canvas')
+      qr_signin.click()
 
-  #     if qr_code.is_displayed():
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_06 [QR코드 로그인]버튼 클릭')
-  #     else:
-  #       print('QR코드 확인 불가')
+      if qr_code.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_06 [QR코드 로그인]버튼 클릭')
+      else:
+        print('QR코드 확인 불가')
 
-  # except Exception:
-  #   fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_06 [QR코드 로그인] 확인 실패')
+  except Exception:
+    fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_06 [QR코드 로그인] 확인 실패')
 
   #coupang_07 유효하지 않은 형식 이메일 입력
-  # try:
-  #   tc_progress = 'COUPANG_07'
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
-  #   id_input.send_keys('pso0244')
+  try:
+    tc_progress = 'COUPANG_07'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
+    id_input.send_keys('pso0244')
 
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
-  #   pw_input.send_keys('aaaaaaa')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
+    pw_input.send_keys('aaaaaaa')
 
-  #   wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
+    wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
     
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
 
-  #   if wrong_email.is_displayed():
-  #     result_pass_list.append(tc_progress)
-  #     print('COUPANG_07 유효하지 않은 계정 입력 성공')
-  #   else:
-  #     print('유효하지 않은 게정 확인 불가')
+    if wrong_email.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_07 유효하지 않은 계정 입력 성공')
+    else:
+      print('유효하지 않은 게정 확인 불가')
 
-  # except Exception:
-  #   fail_reason = '유효하지 않은 계정 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_07 유효하지 않은 계정 확인 실패')
+  except Exception:
+    fail_reason = '유효하지 않은 계정 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_07 유효하지 않은 계정 확인 실패')
 
   #coupang_08 로그인 성공
   try:
@@ -383,7 +372,7 @@ try:
     prices = []
     time.sleep(3)
 
-    #각 상품의 가격 정보 추출
+  #   # #각 상품의 가격 정보 추출
     for product in products:
       product_id = product.get_attribute('price')
       try:
@@ -401,7 +390,7 @@ try:
         print(f"가격 정보 요소를 찾을 수 없음 ID {product_id}")
         continue
     
-    # 가격이 오름차순으로 정렬되었는지 확인
+  #   # # 가격이 오름차순으로 정렬되었는지 확인
     if prices == sorted(prices):
       print('가격이 오름차순으로 정렬되어 있음')
     else:
@@ -414,12 +403,16 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_12 낮은 가격순 필터 확인 실패')
 
-  #coupang_14 닞은가격순 1번 상품 클릭
+  # #coupang_14 닞은가격순 1번 상품 클릭
   try:
     tc_progress = 'COUPANG_14'
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="734755"]/a/dl/dt/img'))).click()
     product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h2')))
 
+    time.sleep(3)
+    all_tabs = driver.window_handles
+    driver.switch_to.window(all_tabs[1])
+    
     if product_name.is_displayed():
       result_pass_list.append(tc_progress)
       print(product_name.text)
@@ -434,12 +427,18 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_14 상품 상세 페이지 확인 실패')
   
-  #coupang_15 [장바구니 담기]버튼 클릭
+  time.sleep(3)
+  all_tabs = driver.window_handles
+  driver.switch_to.window(all_tabs[1])
+
+  # #coupang_15 [장바구니 담기]버튼 클릭
   try:
       tc_progress = 'COUPANG_15'
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[9]/div[2]/div[2]/div/button[1]'))).click()
-      product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h2')))
-      cart_cnt = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="headerCartCount"]')))
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'prod-cart-btn'))).click()
+      product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'prod-buy-header__title')))
+      cart_cnt = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'headerCartCount')))
+
+      time.sleep(2)
 
       if cart_cnt.text == 1:
         result_pass_list.append(tc_progress)
@@ -454,10 +453,10 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_15 장바구니 담기 확인 실패')
 
-  #coupang_16 [장바구니]버튼 클릭
+  # #coupang_16 [장바구니]버튼 클릭
   try:
     tc_progress = 'COUPANG_16'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[3]/a'))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[3]/a/span[1]/img'))).click()
 
     if driver.current_url == 'https://cart.coupang.com/cartView.pang':
       result_pass_list.append(tc_progress)
@@ -472,10 +471,10 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_16 장바구니 페이지 이동 실패')
 
-  #coupang_17 [구매하기]버튼 클릭
+  # #coupang_17 [구매하기]버튼 클릭
   try:
     tc_progress = 'COUPANG_17'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnPay"]'))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#btnPay'))).click()
     pay_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[1]/h3')))
 
     if pay_page.text == '주문/결제':
@@ -491,7 +490,7 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_17 주문/결제 페이지 이동 실패')
 
-  #coupang_18 주문/결제 페이지 노출항목 확인
+  # #coupang_18 주문/결제 페이지 노출항목 확인
   try:
     tc_progress = 'COUPANG_18'
     buyer_info = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[3]/div/h2')))
@@ -537,7 +536,26 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_18 주문/결제 노출항목 확인 실패')
 
-  #coupang_24 [결제하기]버튼 클릭
+  # #coupang_19 [결제하기]버튼 클릭
+  try:
+      tc_progress = 'COUPANG_17'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#btnPay'))).click()
+      pay_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[1]/h3')))
+
+      if pay_page.text == '주문/결제':
+        result_pass_list.append(tc_progress)
+        print('COUPANG_17 주문/결제 페이지 이동 성공')
+      else:
+        print('COUPANG_17 주문/결제 페이지 이동 실패')
+
+  except Exception:
+    fail_reason = '주문/결제 페이지 이동 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_17 주문/결제 페이지 이동 실패')
+
+
   #coupang_25 결제 비밀번호 입력
   #coupang_26 우상단 장바구니 숫자 0확인
   #coupang_27 [주문 상세보기]버튼 클릭
