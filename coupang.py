@@ -461,23 +461,22 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # # #coupang_16 [장바구니]버튼 클릭
-  # try:
-  #   tc_progress = 'COUPANG_16'
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[3]/a/span[1]/img'))).click()
+  # #coupang_16 [장바구니]버튼 클릭
+  try:
+    tc_progress = 'COUPANG_16'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[2]/a/span[1]/img'))).click()
 
-  #   if driver.current_url == 'https://cart.coupang.com/cartView.pang':
-  #     result_pass_list.append(tc_progress)
-  #     print('COUPANG_16 장바구니 페이지 이동 성공')
-  #   else:
-  #     print('COUPANG_16 장바구니 페이지 이동 실패')
+    if driver.current_url == 'https://cart.coupang.com/cartView.pang':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_16 장바구니 페이지 이동 성공')
+    else:
+      print('COUPANG_16 장바구니 페이지 이동 실패')
 
-  # except Exception:
-  #   fail_reason = '장바구니 페이지 이동 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_16 장바구니 페이지 이동 실패')
+  except Exception as e:
+    print(f'COUPANF_16 예외 발생 : {e}')
+    fail_reason = '장바구니 페이지 이동 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
 
   # # #coupang_17 [구매하기]버튼 클릭
   # try:
