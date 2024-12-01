@@ -102,9 +102,15 @@ try:
   try:
     tc_progress = 'COUPANG_03'
 
-    email_singnin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.password.active')
-    phone_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.pc-otp-login-v4')
-    qr_signin = driver.find_element(By.CSS_SELECTOR, 'body > div.member-wrapper.member-wrapper--flex.pc-otp-login-v4 > div.member-main > div.tab-item-header.tab-item-header-otp > a.qrcode.active')
+    email_singnin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[1]'))
+    )
+    phone_signin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[2]'))
+    )
+    qr_signin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[3]'))
+    )
 
     if email_singnin.is_displayed():
       print('COUPANG_03 이메일 로그인 노출')
@@ -115,7 +121,7 @@ try:
       print('COUPANG_03 휴대폰번호 로그인 노출')
     else:
       print('COUPANG_03 휴대폰번호 로그인 미노출')
-    
+
     if qr_signin.is_displayed():
       print('COUPANG_03 QR로그인 노출')
     else:
@@ -124,12 +130,11 @@ try:
     result_pass_list.append(tc_progress)
     print('COUPANG_03 로그인 방법 확인')
 
-  except Exception:
+  except Exception as e:
+    print(f'예외 발생 : {e}')
     fail_reason = '로그인방법 확인 실패'
-    print(fail_reason)
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
-    print('COUPANG_03 로그인방법 확인 실패')
 
   #coupang_04 [이메일 로그인]클릭
   try:
@@ -137,6 +142,8 @@ try:
 
     id_input = driver.find_element(By.ID, 'login-email-input')
     pw_input = driver.find_element(By.ID, 'login-password-input')
+
+    email_singnin.click()
 
     if id_input.is_displayed() & pw_input.is_displayed():
       result_pass_list.append(tc_progress)
@@ -174,10 +181,9 @@ try:
   time.sleep(2)
   try:
       tc_progress = 'COUPANG_06'
-      qr_code = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.qr-login > div.qr-login__content > div.right > div.qr-login__image > canvas')
       qr_signin.click()
 
-      if qr_code.is_displayed():
+      if qr_signin.is_displayed():
         result_pass_list.append(tc_progress)
         print('COUPANG_06 [QR코드 로그인]버튼 클릭')
       else:
@@ -235,7 +241,7 @@ try:
     driver.find_element(By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button').click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
     time.sleep(2)
-    signout_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.CSS_SELECTOR, '#logout > a'))
+    signout_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(By.CLASS_NAME, 'logout'))
 
     if signout_btn.is_displayed():
       result_pass_list.append(tc_progress)
@@ -253,8 +259,8 @@ try:
   #coupang_9 메인화면 로고 옆 검색창 노출 확인
   try:
     tc_progress = 'COUPANG_09'
-    dropbox = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#sbHolder_68839843')))
-    search_form = driver.find_element(By.XPATH, '//*[@id="headerSearchForm"]/fieldset/div')    
+    dropbox = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, 'sbSelector_36409933')))
+    search_form = driver.find_element(By.ID, 'headerSearchKeyword')    
     time.sleep(2)
 
     if dropbox.is_displayed():
@@ -293,7 +299,7 @@ try:
     print('COUPANG_10 칫솔 검색 확인 실패')
 
   #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
-  # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
+  # 1페이지에 노출되는 상품 목록에서 [로켓직구]라벨이 포함되어 있는지 체크
   try:
     tc_progress = 'COUPANG_11'
     driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
@@ -306,9 +312,9 @@ try:
     for product in product_ids:
       product_id = product.get_attribute('id')
       try:
-        # 로켓직구 이미지 요소 찾기
+        # 로켓직구 라벨 요소 찾기
         abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
-        # 로켓직구 이미지의 src 속성 확인
+        # 로켓직구 라벨 src 속성 확인
         if 'global_b.png' not in abroad_img.get_attribute('src'):
           all_abroad_delivery = False
           print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
