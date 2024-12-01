@@ -441,27 +441,25 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # # #coupang_15 [장바구니 담기]버튼 클릭
-  # try:
-  #     tc_progress = 'COUPANG_15'
-  #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'prod-cart-btn'))).click()
-  #     product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'prod-buy-header__title')))
-  #     cart_cnt = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'headerCartCount')))
+  # #coupang_15 [장바구니 담기]버튼 클릭
+  try:
+      tc_progress = 'COUPANG_15'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'prod-cart-btn'))).click()
+      cart_cnt = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'headerCartCount')))
 
-  #     time.sleep(2)
+      time.sleep(2)
 
-  #     if cart_cnt.text == 1:
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_15 장바구니 담기 성공')
-  #     else:
-  #       print('COUPANG_15 장바구니 담기 실패')
+      if cart_cnt.text != '0':
+        result_pass_list.append(tc_progress)
+        print('COUPANG_15 장바구니 담기 성공')
+      else:
+        print('COUPANG_15 장바구니 담기 실패')
 
-  # except Exception:
-  #   fail_reason = '장바구니 담기 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_15 장바구니 담기 확인 실패')
+  except Exception as e:
+    print(f'COUPANG_15 예외 발생 : {e}')
+    fail_reason = '장바구니 담기 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
 
   # # #coupang_16 [장바구니]버튼 클릭
   # try:
