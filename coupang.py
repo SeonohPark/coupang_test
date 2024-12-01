@@ -296,83 +296,85 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_10 칫솔 검색 확인 실패')
 
-  #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
-  # 1페이지에 노출되는 상품 목록에서 [로켓직구]라벨이 포함되어 있는지 체크
-  try:
-    tc_progress = 'COUPANG_11'
-    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
+  # #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
+  # # 1페이지에 노출되는 상품 목록에서 [로켓직구]라벨이 포함되어 있는지 체크
+  # try:
+  #   tc_progress = 'COUPANG_11'
+  #   driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
 
-    # 상품 목록 가져오기
-    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+  #   # 상품 목록 가져오기
+  #   product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
 
-    # 각 상품 검사
-    all_abroad_delivery = True
-    for product in product_ids:
-      product_id = product.get_attribute('id')
-      try:
-        # 로켓직구 라벨 요소 찾기
-        abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
-        # 로켓직구 라벨 src 속성 확인
-        if 'global_b.png' not in abroad_img.get_attribute('src'):
-          all_abroad_delivery = False
-          print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
-          break
-      except NoSuchElementException:
-        all_abroad_delivery = False
-        print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+  #   # 각 상품 검사
+  #   all_abroad_delivery = True
+  #   for product in product_ids:
+  #     product_id = product.get_attribute('id')
+  #     try:
+  #       # 로켓직구 라벨 요소 찾기
+  #       abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+  #       # 로켓직구 라벨 src 속성 확인
+  #       if 'global_b.png' not in abroad_img.get_attribute('src'):
+  #         all_abroad_delivery = False
+  #         print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+  #         break
+  #     except NoSuchElementException:
+  #       all_abroad_delivery = False
+  #       print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
 
-    if all_abroad_delivery:
-      print('coupang_11 모든 상품이 로켓직구 상품임.')
-    else:
-      print('coupang_11 로켓직구가 아닌 일부 상품이 포함되어 있음')
+  #   if all_abroad_delivery:
+  #     print('coupang_11 모든 상품이 로켓직구 상품임.')
+  #   else:
+  #     print('coupang_11 로켓직구가 아닌 일부 상품이 포함되어 있음')
 
-  except Exception:
-    fail_reason = '로켓직구 필터 오류'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_11 로켓직구 필터 확인 실패')
+  # except Exception:
+  #   fail_reason = '로켓직구 필터 오류'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_11 로켓직구 필터 확인 실패')
 
-  #coupang_12 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
-  # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
-  try:
-    tc_progress = 'COUPANG_12'
-    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
-    # 상품 목록 가져오기
-    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
-    # 각 상품 검사
-    all_rocket_delivery = True
-    for product in product_ids:
-      product_id = product.get_attribute('id')
-      try:
-        # 로켓직구 이미지 요소 찾기
-        rocket_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
-        # 로켓직구 이미지의 src 속성 확인
-        if 'rocket.png' not in rocket_img.get_attribute('src'):
-          all_rocket_delivery = False
-          print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
-          break
-      except NoSuchElementException:
-        all_rocket_delivery = False
-        print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+  # #coupang_12 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
+  # # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
+  # try:
+  #   tc_progress = 'COUPANG_12'
+  #   driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
+  #   # 상품 목록 가져오기
+  #   product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+  #   # 각 상품 검사
+  #   all_rocket_delivery = True
+  #   for product in product_ids:
+  #     product_id = product.get_attribute('id')
+  #     try:
+  #       # 로켓직구 이미지 요소 찾기
+  #       rocket_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+  #       # 로켓직구 이미지의 src 속성 확인
+  #       if 'rocket.png' not in rocket_img.get_attribute('src'):
+  #         all_rocket_delivery = False
+  #         print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+  #         break
+  #     except NoSuchElementException:
+  #       all_rocket_delivery = False
+  #       print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
 
-    if all_rocket_delivery:
-      print('COUPANG_12 모든 상품이 로켓배송 상품임.')
-    else:
-      print('COUPANG_12 로켓배송이 아닌 일부 상품이 포함되어 있음')
+  #   if all_rocket_delivery:
+  #     print('COUPANG_12 모든 상품이 로켓배송 상품임.')
+  #   else:
+  #     print('COUPANG_12 로켓배송이 아닌 일부 상품이 포함되어 있음')
 
-  except Exception:
-    fail_reason = '로켓배송 필터 오류'
-    print(fail_reason)
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-    print('COUPANG_12 로켓 필터 확인 실패')
+  # except Exception:
+  #   fail_reason = '로켓배송 필터 오류'
+  #   print(fail_reason)
+  #   result_fail_list.append(tc_progress)
+  #   fail_reason_list.append(fail_reason)
+  #   print('COUPANG_12 로켓 필터 확인 실패')
 
   try:
     #coupang_13 필터 - 상품목록 상단에서 [낮은가격순] 클릭
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="searchSortingOrder"]/ul/li[2]/label'))).click()
     prices = []
     time.sleep(3)
+
+    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
 
     #각 상품의 가격 정보 추출
     for product in product_ids:
@@ -411,33 +413,33 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # #coupang_14 닞은가격순 1번 상품 클릭
-  # try:
-  #   tc_progress = 'COUPANG_14'
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="734755"]/a/dl/dt/img'))).click()
-  #   product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h2')))
+  #coupang_14 닞은가격순 1번 상품 클릭
+  try:
+    tc_progress = 'COUPANG_14'
 
-  #   time.sleep(3)
-  #   all_tabs = driver.window_handles
-  #   driver.switch_to.window(all_tabs[1])
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="734755"]/a/dl/dt/img'))).click()
+
+    time.sleep(3)
+    all_tabs = driver.window_handles
+    if len(all_tabs) > 1:
+      driver.switch_to.window(all_tabs[1])
+    else:
+      raise Exception('새 탭이 열리지 않았습니다.')
+
+    product_name = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="contents"]/div[2]/div[1]/div[3]/div[3]/h1')))
     
-  #   if product_name.is_displayed():
-  #     result_pass_list.append(tc_progress)
-  #     print(product_name.text)
-  #     print('COUPANG_14 상품 상세페이지 진입 성공')
-  #   else:
-  #     print('COUPANG_14 상품 상세페이지 진입 실패')
+    if product_name.is_displayed():
+      result_pass_list.append(tc_progress)
+      print(product_name.text)
+      print('COUPANG_14 상품 상세페이지 진입 성공')
+    else:
+      print('COUPANG_14 상품 상세페이지 진입 실패')
 
-  # except Exception:
-  #   fail_reason = '상품 상세페이지 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_14 상품 상세 페이지 확인 실패')
-  
-  # time.sleep(3)
-  # all_tabs = driver.window_handles
-  # driver.switch_to.window(all_tabs[1])
+  except Exception as e:
+    print(f'COUPANG_14 예외 발생 : {e}')
+    fail_reason = '상품 상세페이지 확인 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
 
   # # #coupang_15 [장바구니 담기]버튼 클릭
   # try:
