@@ -461,7 +461,7 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # #coupang_16 [장바구니]버튼 클릭
+  # #coupang_16 [장바구니]버튼 및 숫자 1노출 확인
   try:
     tc_progress = 'COUPANG_16'
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="header"]/section/div[1]/ul/li[2]/a/span[1]/img'))).click()
@@ -478,7 +478,7 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # #coupang_17 [구매하기]버튼 클릭
+  #coupang_17 [장바구니] 버튼 클릭
   try:
     tc_progress = 'COUPANG_17'
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnPay"]'))).click()
@@ -542,38 +542,69 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  # # #coupang_19 [결제하기]버튼 클릭
-  # try:
-  #     tc_progress = 'COUPANG_17'
-  #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#btnPay'))).click()
-  #     pay_page = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="body"]/div[1]/div[1]/h3')))
+  # #coupang_19 [결제하기]버튼 클릭
+  try:
+      tc_progress = 'COUPANG_19'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'paymentBtn-v2-style'))).click()
 
-  #     if pay_page.text == '주문/결제':
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_17 주문/결제 페이지 이동 성공')
-  #     else:
-  #       print('COUPANG_17 주문/결제 페이지 이동 실패')
+      # 기본 콘텐츠(메인 윈도우)로 전환
+      driver.switch_to.default_content()
 
-  # except Exception:
-  #   fail_reason = '주문/결제 페이지 이동 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_17 주문/결제 페이지 이동 실패')
+  except Exception as e:
+    print(f'COUPANG_19 예외 발생 : {e}')
+    fail_reason = '결제 비밀번호 입력창 노출 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
 
+  #coupang_20 결제 비밀번호 입력
+  try: 
+    input('결제 비밀번호 6자리를 입력해주세요. :')
+    buyComplete = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[1]/div[1]/span')))
 
-  #coupang_25 결제 비밀번호 입력
-  #coupang_26 우상단 장바구니 숫자 0확인
-  #coupang_27 [주문 상세보기]버튼 클릭
-  #coupang_28_1 [배송조회]버튼 클릭 
-  #coupang_28_2 이전 페이지로 이동
-  #coupang_29_1 [주문취소]버튼 클릭
-  #coupang_29_2 [단순변심]버튼 클릭
-  #coupang_29_3 [다음단계]버튼 클릭
-  #coupang_30 [신청하기]버튼 클릭
-  #coupang_31 [확인]버튼 클릭
-  #coupang_32 [쇼핑 계속하기]버튼 클릭
-  #coupang_33 우상단 [로그아웃]버튼 클릭
+    if buyComplete.text == '주문완료':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_20 주문완료 페이지 노출')
+    else:
+      print('COUPANG_20 주문완료 페이지 노출 실패')
+
+  except Exception as e: 
+    print(f'COUPANG_20 예외 발생 : {e}')
+    fail_reason = '결제 비밀번호 입력 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+
+  
+  time.sleep(10)
+
+  #coupang_21 우상단 장바구니 숫자 0확인
+  # 기본 콘텐츠(메인 윈도우)로 전환
+  driver.switch_to.default_content()
+  try:
+    tc_progress = 'COUPANG_21'
+    time.sleep(2)
+
+    if cart_cnt.text == '0':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_21 장바구니 담기 성공')
+    else:
+      print('COUPANG_21 장바구니 담기 실패')
+
+  except Exception as e:
+    print(f'COUPANG_21 예외 발생 : {e}')
+    fail_reason = '장바구니 담기 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
+  #coupang_22 [주문 상세보기]버튼 클릭
+  #coupang_23_1 [배송조회]버튼 클릭 
+  #coupang_23_2 이전 페이지로 이동
+  #coupang_24_1 [주문취소]버튼 클릭
+  #coupang_24_2 [단순변심]버튼 클릭
+  #coupang_24_3 [다음단계]버튼 클릭
+  #coupang_25 [신청하기]버튼 클릭
+  #coupang_26 [확인]버튼 클릭
+  #coupang_27 [쇼핑 계속하기]버튼 클릭
+  #coupang_28 우상단 [로그아웃]버튼 클릭
   
   time.sleep(5)
   
