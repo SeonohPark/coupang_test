@@ -520,7 +520,7 @@ try:
     
     if delivery_info.is_displayed():
       result_pass_list.append(tc_progress)
-      print('COUPANG_18_3 배송방법 노출 확인')
+      print('COUPANG_18_3 배송방법  노출 확인')
     else:
       print('COUPANG_18_3 배송방법 노출 실패')
 
@@ -546,9 +546,14 @@ try:
   try:
       tc_progress = 'COUPANG_19'
       WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'paymentBtn-v2-style'))).click()
+      driver.switch_to.frame('callLGPayment')
+      paymentPassword = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'rpay-headerTitle')))
+      
+      if paymentPassword.text == '비밀번호 입력':
+        print('COUPANG_19 비밀번호 입력 팝업 노출')
 
-      # 기본 콘텐츠(메인 윈도우)로 전환
-      driver.switch_to.default_content()
+      else:
+        print('COUPANG_19 비밀번호 입력 팝업 노출 실패')
 
   except Exception as e:
     print(f'COUPANG_19 예외 발생 : {e}')
@@ -559,6 +564,7 @@ try:
   #coupang_20 결제 비밀번호 입력
   try: 
     input('결제 비밀번호 6자리를 입력해주세요. :')
+    driver.switch_to.default_content()
     buyComplete = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[1]/div[1]/span')))
 
     if buyComplete.text == '주문완료':
@@ -573,37 +579,182 @@ try:
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
 
-  
-  time.sleep(10)
-
   #coupang_21 우상단 장바구니 숫자 0확인
-  # 기본 콘텐츠(메인 윈도우)로 전환
-  driver.switch_to.default_content()
+
+  cartClear = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'headerCartCount')))
   try:
     tc_progress = 'COUPANG_21'
     time.sleep(2)
 
-    if cart_cnt.text == '0':
+    if cartClear.text == '0':
       result_pass_list.append(tc_progress)
-      print('COUPANG_21 장바구니 담기 성공')
+      print('COUPANG_21 장바구니 비움 성공')
     else:
-      print('COUPANG_21 장바구니 담기 실패')
+      print('COUPANG_21 장바구니 비움 실패')
 
   except Exception as e:
     print(f'COUPANG_21 예외 발생 : {e}')
-    fail_reason = '장바구니 담기 실패'
+    fail_reason = '장바구니 비움 실패'
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
   
   #coupang_22 [주문 상세보기]버튼 클릭
-  #coupang_23_1 [배송조회]버튼 클릭 
+  try:
+      tc_progress = 'COUPANG_22'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1vm0jpx-0 sc-1vm0jpx-2 sc-wh3cod-1 gWgVCb iqKTcw hmSagB'))).click
+      orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
+
+      if orderDetail.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_22 주문상세 페이지 이동 성공')
+      else:
+        print('COUPANG_22 주문상세 페이지 이동 실패')
+
+  except Exception as e:
+    print(f'COUPANG_22 예외 발생 : {e}')
+    fail_reason = '주문상세 페이지 이동 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+
+  #coupang_23_1 [배송조회]버튼 클릭
+  try:
+      tc_progress = 'COUPANG_23_1'
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[1]'))).click
+      deliveryDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div[2]/div[1]')))
+
+      if deliveryDate.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_23_1 배송조회 페이지 이동 성공')
+        print(f'도착 예정 시간 : {deliveryDate}')
+      else:
+        print('COUPANG_23_1 배송조회 페이지 이동 실패')
+
+  except Exception as e:
+    print(f'COUPANG_23_1 예외 발생 : {e}')
+    fail_reason = '배송조회 페이지 이동 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_23_2 이전 페이지로 이동
+  try:
+    driver.back()
+    orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
+
+    if orderDetail.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_23_2 주문상세 페이지 이동 성공')
+    else:
+      print('COUPANG_23_2 주문상세 페이지 이동 실패')
+
+  except Exception as e:
+    print(f'COUPANG_23_2 예외 발생 : {e}')
+    fail_reason = '주문상세 페이지 이동 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_24_1 [주문취소]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 hEHzLT sc-gnmni8-8 kiiuoA'))).click
+    cancelPage = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-1h67xiw-1 jzBiTv')))
+
+    if cancelPage.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_24_1 주문취소 페이지 진입 성공')
+    else:
+      print('COUPANG_24_1 주문취소 페이지 진입 실패')
+
+  except Exception as e:
+    print(f'COUPANG_24_1 예외 발생 : {e}')
+    fail_reason = '주문취소 페이지 진입 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+
   #coupang_24_2 [단순변심]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-ax4tjr-0 gWyCr'))).click
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 bRJnss'))).click
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-8n52k7-0 eQTgXr'))).click
+    cancelReason = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/span')))
+
+    if cancelReason.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_24_2 주문취소 사유 선택 성공')
+    else:
+      print('COUPANG_24_2 주문취소 사유 선택 실패')
+
+  except Exception as e:
+    print(f'COUPANG_24_2 예외 발생 : {e}')
+    fail_reason = '주문취소 사유 선택 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_24_3 [다음단계]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 bRJnss'))).click
+    refundInfo = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/span')))
+
+    if refundInfo.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_24_3 환불 정보 확인 성공')
+    else:
+      print('COUPANG_24_3 환불 정보 확인 실패')
+
+  except Exception as e:
+    print(f'COUPANG_24_3 예외 발생 : {e}')
+    fail_reason = '환불 정보 확인 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+ 
   #coupang_25 [신청하기]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 fNOflY sc-h1cnfc-0 haHncs'))).click
+    cancelConfirm = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-755zt3-0 sc-18sjv1d-1 jtWNEg')))
+
+    if cancelConfirm.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_25 신청하기 버튼 클릭 성공')
+    else:
+      print('COUPANG_25 신청하기 버튼 클릭 실패')
+
+  except Exception as e:
+    print(f'COUPANG_25 예외 발생 : {e}')
+    fail_reason = '신청하기 버튼 클릭 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_26 [확인]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 fNOflY sc-1mqf833-5 gNWRwL'))).click
+    cancelComplete = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-1vjn3x9-2 izFbWh')))
+
+    if cancelComplete.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_26 주문취소 확인 성공')
+    else:
+      print('COUPANG_26 주문취소 확인 실패')
+
+  except Exception as e:
+    print(f'COUPANG_26 예외 발생 : {e}')
+    fail_reason = '주문취소 확인 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_27 [쇼핑 계속하기]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 erCzgL'))).click
+
+    if driver.current_url == 'https://www.coupang.com/':
+      result_pass_list.append(tc_progress)
+      print('COUPANG_27 메인화면 돌아가기 성공')
+    else:
+      print('COUPANG_27 메인화면 돌아가기 실패')
+
+  except Exception as e:
+    print(f'COUPANG_27 예외 발생 : {e}')
+    fail_reason = '메인화면 돌아가기 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+  
   #coupang_28 우상단 [로그아웃]버튼 클릭
   
   time.sleep(5)
@@ -630,5 +781,5 @@ except Exception as e:
 # f.write(f'PASS RATE : {(len(result_pass_list)/tc_count)*100}%\n')#패스 TC 비율
 
 print('##########테스트 스크립트 종료##########')
-driver.quit()
+# driver.quit()
 
