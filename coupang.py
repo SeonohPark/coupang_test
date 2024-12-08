@@ -600,15 +600,15 @@ try:
   
   #coupang_22 [주문 상세보기]버튼 클릭
   try:
-      tc_progress = 'COUPANG_22'
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1vm0jpx-0 sc-1vm0jpx-2 sc-wh3cod-1 gWgVCb iqKTcw hmSagB'))).click
-      orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
+    tc_progress = 'COUPANG_22'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[1]/div[4]/button[1]'))).click
+    orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
 
-      if orderDetail.is_displayed():
-        result_pass_list.append(tc_progress)
-        print('COUPANG_22 주문상세 페이지 이동 성공')
-      else:
-        print('COUPANG_22 주문상세 페이지 이동 실패')
+    if orderDetail.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_22 주문상세 페이지 이동 성공')
+    else:
+      print('COUPANG_22 주문상세 페이지 이동 실패')
 
   except Exception as e:
     print(f'COUPANG_22 예외 발생 : {e}')
@@ -618,16 +618,16 @@ try:
 
   #coupang_23_1 [배송조회]버튼 클릭
   try:
-      tc_progress = 'COUPANG_23_1'
-      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[1]'))).click
-      deliveryDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div[2]/div[1]')))
+    tc_progress = 'COUPANG_23_1'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[1]'))).click
+    deliveryDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div[2]/div[1]')))
 
-      if deliveryDate.is_displayed():
-        result_pass_list.append(tc_progress)
-        print('COUPANG_23_1 배송조회 페이지 이동 성공')
-        print(f'도착 예정 시간 : {deliveryDate}')
-      else:
-        print('COUPANG_23_1 배송조회 페이지 이동 실패')
+    if deliveryDate.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_23_1 배송조회 페이지 이동 성공')
+      print(f'도착 예정 시간 : {deliveryDate}')
+    else:
+      print('COUPANG_23_1 배송조회 페이지 이동 실패')
 
   except Exception as e:
     print(f'COUPANG_23_1 예외 발생 : {e}')
@@ -654,8 +654,8 @@ try:
   
   #coupang_24_1 [주문취소]버튼 클릭
   try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 hEHzLT sc-gnmni8-8 kiiuoA'))).click
-    cancelPage = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-1h67xiw-1 jzBiTv')))
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[2]'))).click
+    cancelPage = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
 
     if cancelPage.is_displayed():
       result_pass_list.append(tc_progress)
@@ -671,9 +671,9 @@ try:
 
   #coupang_24_2 [단순변심]버튼 클릭
   try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-ax4tjr-0 gWyCr'))).click
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 bRJnss'))).click
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-8n52k7-0 eQTgXr'))).click
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[1]/div/div/div[1]/div/div[1]/div[1]/div[1]/div'))).click
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[1]/div/div/div[2]/button'))).click
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="uf_reason_CHANGEMIND"]/div'))).click
     cancelReason = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/span')))
 
     if cancelReason.is_displayed():
@@ -756,6 +756,21 @@ try:
     fail_reason_list.append(fail_reason)
   
   #coupang_28 우상단 [로그아웃]버튼 클릭
+  try:
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="logout"]/a'))).click
+    signin_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="login"]/a')))
+
+    if signin_btn.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_28 로그아웃 성공')
+    else:
+      print('COUPANG_28 로그아웃 실패')
+
+  except Exception as e:
+    print(f'COUPANG_28 예외 발생 : {e}')
+    fail_reason = '로그아웃 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
   
   time.sleep(5)
   
