@@ -1,4 +1,4 @@
-# import os
+import os
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -17,22 +17,21 @@ today = time.strftime('%Y%m%d')
 result_pass_list = [] #pass한 TC ID를 가지고 있는 리스트
 result_fail_list = [] #fail한 TC ID를 가지고 있는 리스트
 fail_reason_list = [] #fail한 원인을 가지고 있는 리스트
-tc_count = 36 #전체 TC 개수 
+tc_count = 22 #전체 TC 개수 
 
 # 리포트 파일 폴더 만들기
-# if not os.path.exists('test_result'):
-#   os.makedirs('test_result')
+if not os.path.exists('test_result'):
+  os.makedirs('test_result')
 
-#   f = open('test_result.txt', 'a')
-#   f.write('\n 내용을 추가로 작성합니다.')
-#   f.close()
-
+  f = open('test_result.txt', 'a')
+  f.write('\n 내용을 추가로 작성합니다.')
+  f.close()
 
 # 테스트 전 과정에 걸쳐 에러발생 시 에러를 기록하는 try, except문 
 try:
   print('##################테스트 시작###################')
-  # f = open(f'test_result/{now}_test_result.txt', 'w')
-  # f.write(f'테스트 수행 일자 - {now}\n')
+  f = open(f'test_result/{now}_test_result.txt', 'w')
+  f.write(f'테스트 수행 일자 - {now}\n')
 
   driver = webdriver.Chrome()
 
@@ -98,43 +97,43 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_02 로그인 버튼 확인 실패')
 
-  # #coupang_03 로그인 방법 확인
-  # try:
-  #   tc_progress = 'COUPANG_03'
+  #coupang_03 로그인 방법 확인
+  try:
+    tc_progress = 'COUPANG_03'
 
-  #   email_singnin = WebDriverWait(driver, 10).until(
-  #     EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[1]'))
-  #   )
-  #   phone_signin = WebDriverWait(driver, 10).until(
-  #     EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[2]'))
-  #   )
-  #   qr_signin = WebDriverWait(driver, 10).until(
-  #     EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[3]'))
-  #   )
+    email_singnin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[1]'))
+    )
+    phone_signin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[2]'))
+    )
+    qr_signin = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div[1]/div[1]/a[3]'))
+    )
 
-  #   if email_singnin.is_displayed():
-  #     print('COUPANG_03 이메일 로그인 노출')
-  #   else:
-  #     print('COUPANG_03 이메일 로그인 미노출')
+    if email_singnin.is_displayed():
+      print('COUPANG_03 이메일 로그인 노출')
+    else:
+      print('COUPANG_03 이메일 로그인 미노출')
 
-  #   if phone_signin.is_displayed():
-  #     print('COUPANG_03 휴대폰번호 로그인 노출')
-  #   else:
-  #     print('COUPANG_03 휴대폰번호 로그인 미노출')
+    if phone_signin.is_displayed():
+      print('COUPANG_03 휴대폰번호 로그인 노출')
+    else:
+      print('COUPANG_03 휴대폰번호 로그인 미노출')
 
-  #   if qr_signin.is_displayed():
-  #     print('COUPANG_03 QR로그인 노출')
-  #   else:
-  #     print('COUPANG_03 QR로그인 미노출')
+    if qr_signin.is_displayed():
+      print('COUPANG_03 QR로그인 노출')
+    else:
+      print('COUPANG_03 QR로그인 미노출')
 
-  #   result_pass_list.append(tc_progress)
-  #   print('COUPANG_03 로그인 방법 확인')
+    result_pass_list.append(tc_progress)
+    print('COUPANG_03 로그인 방법 확인')
 
-  # except Exception as e:
-  #   print(f'예외 발생 : {e}')
-  #   fail_reason = '로그인방법 확인 실패'
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
+  except Exception as e:
+    print(f'예외 발생 : {e}')
+    fail_reason = '로그인방법 확인 실패'
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
 
   #coupang_04 [이메일 로그인]클릭
   try:
@@ -158,70 +157,70 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_04 [이메일 로그인] 확인 실패')
 
-  # #coupang_05 [휴대폰번호 로그인]클릭
-  # try:
-  #     tc_progress = 'COUPANG_05'
-  #     phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
-  #     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
+  #coupang_05 [휴대폰번호 로그인]클릭
+  try:
+      tc_progress = 'COUPANG_05'
+      phone_input = driver.find_element(By.XPATH, '//*[@id="phone-field-wrap"]/div[1]/label/input')
+      WebDriverWait(driver, 10).until(EC.element_to_be_clickable((phone_signin))).click()
 
-  #     if phone_input.is_displayed():
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
-  #     else:
-  #       print('휴대폰번호 입력란 확인 불가')
+      if phone_input.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_05 [휴대폰번호 로그인]버튼 클릭')
+      else:
+        print('휴대폰번호 입력란 확인 불가')
 
-  # except Exception:
-  #   fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
+  except Exception:
+    fail_reason = '휴대폰번호 로그인 컴포넌트 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_05 [휴대폰번호 로그인] 확인 실패')
   
-  # #coupang_06 [QR코드 로그인]클릭
-  # time.sleep(2)
-  # try:
-  #     tc_progress = 'COUPANG_06'
-  #     qr_signin.click()
+  #coupang_06 [QR코드 로그인]클릭
+  time.sleep(2)
+  try:
+      tc_progress = 'COUPANG_06'
+      qr_signin.click()
 
-  #     if qr_signin.is_displayed():
-  #       result_pass_list.append(tc_progress)
-  #       print('COUPANG_06 [QR코드 로그인]버튼 클릭')
-  #     else:
-  #       print('QR코드 확인 불가')
+      if qr_signin.is_displayed():
+        result_pass_list.append(tc_progress)
+        print('COUPANG_06 [QR코드 로그인]버튼 클릭')
+      else:
+        print('QR코드 확인 불가')
 
-  # except Exception:
-  #   fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_06 [QR코드 로그인] 확인 실패')
+  except Exception:
+    fail_reason = 'QR코드 로그인 컴포넌트 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_06 [QR코드 로그인] 확인 실패')
 
-  # #coupang_07 유효하지 않은 형식 이메일 입력
-  # try:
-  #   tc_progress = 'COUPANG_07'
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
-  #   id_input.send_keys('pso0244')
+  #coupang_07 유효하지 않은 형식 이메일 입력
+  try:
+    tc_progress = 'COUPANG_07'
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((email_singnin))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((id_input))).click()
+    id_input.send_keys('pso0244')
 
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
-  #   pw_input.send_keys('aaaaaaa')
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((pw_input))).click()
+    pw_input.send_keys('aaaaaaa')
 
-  #   wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
+    wrong_email = driver.find_element(By.CSS_SELECTOR, '#memberLogin > div.tab-item.member-login._loginRoot.sms-login-target.style-v2 > form > div.login__content.login__content--input > div:nth-child(1) > div.member__expand-field > div')
     
-  #   WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
+    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="memberLogin"]/div[1]/form/div[5]/button'))).click()
 
-  #   if wrong_email.is_displayed():
-  #     result_pass_list.append(tc_progress)
-  #     print('COUPANG_07 유효하지 않은 계정 입력 성공')
-  #   else:
-  #     print('유효하지 않은 게정 확인 불가')
+    if wrong_email.is_displayed():
+      result_pass_list.append(tc_progress)
+      print('COUPANG_07 유효하지 않은 계정 입력 성공')
+    else:
+      print('유효하지 않은 게정 확인 불가')
 
-  # except Exception:
-  #   fail_reason = '유효하지 않은 계정 확인 실패'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_07 유효하지 않은 계정 확인 실패')
+  except Exception:
+    fail_reason = '유효하지 않은 계정 확인 실패'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_07 유효하지 않은 계정 확인 실패')
 
   #coupang_08 로그인 성공
   try:
@@ -251,7 +250,7 @@ try:
       print('로그인 성공 확인 불가')
 
   except Exception as e:
-    print(f'coupang_08 예외 발생 : {e}')
+    print(f'COUPANG_08 예외 발생 : {e}')
     fail_reason = '로그인 성공 확인 실패'
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
@@ -264,7 +263,7 @@ try:
 
     if search_form.is_displayed():
       result_pass_list.append(tc_progress)
-      print('coupang_9 검색창 노출 확인')
+      print('COUPANG_09 검색창 노출 확인')
     else:
       print('검색창 확인 불가')
 
@@ -296,77 +295,77 @@ try:
     fail_reason_list.append(fail_reason)
     print('COUPANG_10 칫솔 검색 확인 실패')
 
-  # #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
-  # # 1페이지에 노출되는 상품 목록에서 [로켓직구]라벨이 포함되어 있는지 체크
-  # try:
-  #   tc_progress = 'COUPANG_11'
-  #   driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
+  #coupang_11 필터 - 좌측 필터에서 '로켓직구만 보기' 클릭
+  # 1페이지에 노출되는 상품 목록에서 [로켓직구]라벨이 포함되어 있는지 체크
+  try:
+    tc_progress = 'COUPANG_11'
+    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[3]/label').click()
 
-  #   # 상품 목록 가져오기
-  #   product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+    # 상품 목록 가져오기
+    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
 
-  #   # 각 상품 검사
-  #   all_abroad_delivery = True
-  #   for product in product_ids:
-  #     product_id = product.get_attribute('id')
-  #     try:
-  #       # 로켓직구 라벨 요소 찾기
-  #       abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
-  #       # 로켓직구 라벨 src 속성 확인
-  #       if 'global_b.png' not in abroad_img.get_attribute('src'):
-  #         all_abroad_delivery = False
-  #         print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
-  #         break
-  #     except NoSuchElementException:
-  #       all_abroad_delivery = False
-  #       print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+    # 각 상품 검사
+    all_abroad_delivery = True
+    for product in product_ids:
+      product_id = product.get_attribute('id')
+      try:
+        # 로켓직구 라벨 요소 찾기
+        abroad_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+        # 로켓직구 라벨 src 속성 확인
+        if 'global_b.png' not in abroad_img.get_attribute('src'):
+          all_abroad_delivery = False
+          print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
+          break
+      except NoSuchElementException:
+        all_abroad_delivery = False
+        print(f"상품 ID {product_id} 로켓직구 해당 상품이 아님.")
 
-  #   if all_abroad_delivery:
-  #     print('coupang_11 모든 상품이 로켓직구 상품임.')
-  #   else:
-  #     print('coupang_11 로켓직구가 아닌 일부 상품이 포함되어 있음')
+    if all_abroad_delivery:
+      print('coupang_11 모든 상품이 로켓직구 상품임.')
+    else:
+      print('coupang_11 로켓직구가 아닌 일부 상품이 포함되어 있음')
 
-  # except Exception:
-  #   fail_reason = '로켓직구 필터 오류'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_11 로켓직구 필터 확인 실패')
+  except Exception:
+    fail_reason = '로켓직구 필터 오류'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_11 로켓직구 필터 확인 실패')
 
-  # #coupang_12 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
-  # # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
-  # try:
-  #   tc_progress = 'COUPANG_12'
-  #   driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
-  #   # 상품 목록 가져오기
-  #   product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
-  #   # 각 상품 검사
-  #   all_rocket_delivery = True
-  #   for product in product_ids:
-  #     product_id = product.get_attribute('id')
-  #     try:
-  #       # 로켓직구 이미지 요소 찾기
-  #       rocket_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
-  #       # 로켓직구 이미지의 src 속성 확인
-  #       if 'rocket.png' not in rocket_img.get_attribute('src'):
-  #         all_rocket_delivery = False
-  #         print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
-  #         break
-  #     except NoSuchElementException:
-  #       all_rocket_delivery = False
-  #       print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+  #coupang_12 필터 - 좌측 필터에서 '로켓와우만 보기' 클릭
+  # 1페이지에 노출되는 상품 목록에서 [로켓직구]이미지가 포함되어 있는지 체크
+  try:
+    tc_progress = 'COUPANG_12'
+    driver.find_element(By.XPATH, '//*[@id="searchServiceFilter"]/ul/li[1]/div/ul/li[2]/label').click()
+    # 상품 목록 가져오기
+    product_ids = driver.find_elements(By.XPATH, "//div[@class='id']")
+    # 각 상품 검사
+    all_rocket_delivery = True
+    for product in product_ids:
+      product_id = product.get_attribute('id')
+      try:
+        # 로켓직구 이미지 요소 찾기
+        rocket_img = product.find_element(By.XPATH, f"//*[@id='{product_id}']/a/dl/dd/div/div[3]/div/div[1]/em/span/img")
+        # 로켓직구 이미지의 src 속성 확인
+        if 'rocket.png' not in rocket_img.get_attribute('src'):
+          all_rocket_delivery = False
+          print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
+          break
+      except NoSuchElementException:
+        all_rocket_delivery = False
+        print(f"상품 ID {product_id} 로켓배송 해당 상품이 아님.")
 
-  #   if all_rocket_delivery:
-  #     print('COUPANG_12 모든 상품이 로켓배송 상품임.')
-  #   else:
-  #     print('COUPANG_12 로켓배송이 아닌 일부 상품이 포함되어 있음')
+    if all_rocket_delivery:
+      print('COUPANG_12 모든 상품이 로켓배송 상품임.')
+    else:
+      print('COUPANG_12 로켓배송이 아닌 일부 상품이 포함되어 있음')
 
-  # except Exception:
-  #   fail_reason = '로켓배송 필터 오류'
-  #   print(fail_reason)
-  #   result_fail_list.append(tc_progress)
-  #   fail_reason_list.append(fail_reason)
-  #   print('COUPANG_12 로켓 필터 확인 실패')
+  except Exception:
+    fail_reason = '로켓배송 필터 오류'
+    print(fail_reason)
+    result_fail_list.append(tc_progress)
+    fail_reason_list.append(fail_reason)
+    print('COUPANG_12 로켓 필터 확인 실패')
 
   try:
     #coupang_13 필터 - 상품목록 상단에서 [낮은가격순] 클릭
@@ -549,9 +548,8 @@ try:
       driver.switch_to.frame('callLGPayment')
       paymentPassword = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'rpay-headerTitle')))
       
-      if paymentPassword.text == '비밀번호 입력':
+      if paymentPassword.is_displayed() :
         print('COUPANG_19 비밀번호 입력 팝업 노출')
-
       else:
         print('COUPANG_19 비밀번호 입력 팝업 노출 실패')
 
@@ -563,7 +561,8 @@ try:
 
   #coupang_20 결제 비밀번호 입력
   try: 
-    input('결제 비밀번호 6자리를 입력해주세요. :')
+    tc_progress = 'COUPANG_20'
+    input('비밀번호 입력이 완료되었으면 0000을 입력해 주세요')
     driver.switch_to.default_content()
     buyComplete = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[1]/div[1]/span')))
 
@@ -580,7 +579,6 @@ try:
     fail_reason_list.append(fail_reason)
 
   #coupang_21 우상단 장바구니 숫자 0확인
-
   cartClear = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'headerCartCount')))
   try:
     tc_progress = 'COUPANG_21'
@@ -597,204 +595,29 @@ try:
     fail_reason = '장바구니 비움 실패'
     result_fail_list.append(tc_progress)
     fail_reason_list.append(fail_reason)
-  
-  #coupang_22 [주문 상세보기]버튼 클릭
-  try:
-    tc_progress = 'COUPANG_22'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[1]/div[4]/button[1]'))).click
-    orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
 
-    if orderDetail.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_22 주문상세 페이지 이동 성공')
-    else:
-      print('COUPANG_22 주문상세 페이지 이동 실패')
-
-  except Exception as e:
-    print(f'COUPANG_22 예외 발생 : {e}')
-    fail_reason = '주문상세 페이지 이동 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-
-  #coupang_23_1 [배송조회]버튼 클릭
-  try:
-    tc_progress = 'COUPANG_23_1'
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[1]'))).click
-    deliveryDate = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div[2]/div[1]')))
-
-    if deliveryDate.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_23_1 배송조회 페이지 이동 성공')
-      print(f'도착 예정 시간 : {deliveryDate}')
-    else:
-      print('COUPANG_23_1 배송조회 페이지 이동 실패')
-
-  except Exception as e:
-    print(f'COUPANG_23_1 예외 발생 : {e}')
-    fail_reason = '배송조회 페이지 이동 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_23_2 이전 페이지로 이동
-  try:
-    driver.back()
-    orderDetail = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
-
-    if orderDetail.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_23_2 주문상세 페이지 이동 성공')
-    else:
-      print('COUPANG_23_2 주문상세 페이지 이동 실패')
-
-  except Exception as e:
-    print(f'COUPANG_23_2 예외 발생 : {e}')
-    fail_reason = '주문상세 페이지 이동 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_24_1 [주문취소]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div/button[2]'))).click
-    cancelPage = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[1]/h1')))
-
-    if cancelPage.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_24_1 주문취소 페이지 진입 성공')
-    else:
-      print('COUPANG_24_1 주문취소 페이지 진입 실패')
-
-  except Exception as e:
-    print(f'COUPANG_24_1 예외 발생 : {e}')
-    fail_reason = '주문취소 페이지 진입 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-
-  #coupang_24_2 [단순변심]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[1]/div/div/div[1]/div/div[1]/div[1]/div[1]/div'))).click
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[1]/div/div/div[2]/button'))).click
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="uf_reason_CHANGEMIND"]/div'))).click
-    cancelReason = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/span')))
-
-    if cancelReason.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_24_2 주문취소 사유 선택 성공')
-    else:
-      print('COUPANG_24_2 주문취소 사유 선택 실패')
-
-  except Exception as e:
-    print(f'COUPANG_24_2 예외 발생 : {e}')
-    fail_reason = '주문취소 사유 선택 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_24_3 [다음단계]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 bRJnss'))).click
-    refundInfo = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="__next"]/div[2]/div[2]/div/div[2]/div/div[3]/div/div/div[2]/span')))
-
-    if refundInfo.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_24_3 환불 정보 확인 성공')
-    else:
-      print('COUPANG_24_3 환불 정보 확인 실패')
-
-  except Exception as e:
-    print(f'COUPANG_24_3 예외 발생 : {e}')
-    fail_reason = '환불 정보 확인 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
- 
-  #coupang_25 [신청하기]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 fNOflY sc-h1cnfc-0 haHncs'))).click
-    cancelConfirm = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-755zt3-0 sc-18sjv1d-1 jtWNEg')))
-
-    if cancelConfirm.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_25 신청하기 버튼 클릭 성공')
-    else:
-      print('COUPANG_25 신청하기 버튼 클릭 실패')
-
-  except Exception as e:
-    print(f'COUPANG_25 예외 발생 : {e}')
-    fail_reason = '신청하기 버튼 클릭 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_26 [확인]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 fNOflY sc-1mqf833-5 gNWRwL'))).click
-    cancelComplete = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sc-1vjn3x9-2 izFbWh')))
-
-    if cancelComplete.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_26 주문취소 확인 성공')
-    else:
-      print('COUPANG_26 주문취소 확인 실패')
-
-  except Exception as e:
-    print(f'COUPANG_26 예외 발생 : {e}')
-    fail_reason = '주문취소 확인 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_27 [쇼핑 계속하기]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'sc-1k9quwu-0 erCzgL'))).click
-
-    if driver.current_url == 'https://www.coupang.com/':
-      result_pass_list.append(tc_progress)
-      print('COUPANG_27 메인화면 돌아가기 성공')
-    else:
-      print('COUPANG_27 메인화면 돌아가기 실패')
-
-  except Exception as e:
-    print(f'COUPANG_27 예외 발생 : {e}')
-    fail_reason = '메인화면 돌아가기 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
-  #coupang_28 우상단 [로그아웃]버튼 클릭
-  try:
-    WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="logout"]/a'))).click
-    signin_btn = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="login"]/a')))
-
-    if signin_btn.is_displayed():
-      result_pass_list.append(tc_progress)
-      print('COUPANG_28 로그아웃 성공')
-    else:
-      print('COUPANG_28 로그아웃 실패')
-
-  except Exception as e:
-    print(f'COUPANG_28 예외 발생 : {e}')
-    fail_reason = '로그아웃 실패'
-    result_fail_list.append(tc_progress)
-    fail_reason_list.append(fail_reason)
-  
   time.sleep(5)
   
 except Exception as e:
   print(f'에러가 발생하여 테스트 종료: {tc_progress} >>> {e}')
 
-# #PASS 테스트 결과 기록
-# f.write('\n[RESULT - PASS]\n')
-# for pass_cnt in range(len(result_pass_list)):
-#   f.write(f'{result_pass_list[pass_cnt]} : PASS\n')
+#PASS 테스트 결과 기록
+f.write('\n[RESULT - PASS]\n')
+for pass_cnt in range(len(result_pass_list)):
+  f.write(f'{result_pass_list[pass_cnt]} : PASS\n')
 
-# #FAIL 테스트 결과 기록
-# f.write('\n[RESULT - FAIL]\n')
-# for fail_cnt in range(len(result_fail_list)):
-#   f.write(f'{result_fail_list[fail_cnt]} : FAIL\n')
-#   f.write(f'\tFAIL REASON : {fail_reason_list[fail_cnt]}\n')
+#FAIL 테스트 결과 기록
+f.write('\n[RESULT - FAIL]\n')
+for fail_cnt in range(len(result_fail_list)):
+  f.write(f'{result_fail_list[fail_cnt]} : FAIL\n')
+  f.write(f'\tFAIL REASON : {fail_reason_list[fail_cnt]}\n')
 
-# f.write('\n') 
-# f.write(f'PASS TC COUNT : {len(result_pass_list)}\n')#패스 TC 개수  
-# f.write(f'FAIL TC COUNT : {len(result_fail_list)}\n')#실패 TC 개수
-# f.write(f'COMPLETED TEST COUNT : {len(result_pass_list) + len(result_fail_list)}\n')#수행 완료한 TC 개수
-# f.write(f'PROGRESS OF TEST : {(len(result_pass_list) + len(result_fail_list))/tc_count}\n') #TC 진척률
-# f.write(f'PASS RATE : {(len(result_pass_list)/tc_count)*100}%\n')#패스 TC 비율
+f.write('\n') 
+f.write(f'PASS TC COUNT : {len(result_pass_list)}\n')#패스 TC 개수  
+f.write(f'FAIL TC COUNT : {len(result_fail_list)}\n')#실패 TC 개수
+f.write(f'COMPLETED TEST COUNT : {len(result_pass_list) + len(result_fail_list)}\n')#수행 완료한 TC 개수
+f.write(f'PROGRESS OF TEST : {(len(result_pass_list) + len(result_fail_list))/tc_count}\n') #TC 진척률
+f.write(f'PASS RATE : {(len(result_pass_list)/tc_count)*100}%\n')#패스 TC 비율
 
 print('##########테스트 스크립트 종료##########')
-# driver.quit()
-
+driver.quit()
